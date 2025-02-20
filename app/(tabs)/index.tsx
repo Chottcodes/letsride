@@ -12,6 +12,7 @@ import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import CustomeInput from "../../components/ui/customeInput";
 import { useState } from "react";
+import CustomeButton from "@/components/ui/customeButton";
 
 export default function HomeScreen() {
   let [fontsLoaded] = useFonts({
@@ -24,18 +25,16 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.SafeAreaContainer}>
-      <StatusBar style="light" backgroundColor="black" />
+      <StatusBar backgroundColor="black" style="light"  />
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.viewContainer}>
         <Image
           source={require("../../assets/images/LetsRide.png")}
           style={styles.headerImage}
         />
-        <Text style={[styles.text, { fontFamily }]}>
+        <Text style={[styles.slogantext, { fontFamily }]}>
           Connecting Riders, One Mile At A Time
         </Text>
-        
-          
           <CustomeInput
             value={email}
             setValue={setEmail}
@@ -46,11 +45,14 @@ export default function HomeScreen() {
           <CustomeInput
             value={password}
             setValue={setPassword}
-            placeholder="Enter your email"
+            placeholder="Enter your password"
             secureTextEntry={true}
             imageSource={require("../../assets/images/padlock.png")}
+            imageSource2={require("../../assets/images/view.png")}
+            imageSource3={require("../../assets/images/hide.png")}
           />
-         
+          <CustomeButton borderColor="transparent" borderWidth={0} title="Login" />
+          <CustomeButton borderColor="white" borderWidth={2} backgroundColor="black" title="Sign Up" />
          </View>
          </TouchableWithoutFeedback>
     </SafeAreaView>
@@ -72,11 +74,12 @@ const styles = StyleSheet.create({
     height: 250,
     alignSelf: "center",
   },
-  text: {
+  slogantext: {
     fontFamily: "Antonio regular",
     fontSize: 15,
     textAlign: "center",
     width: "80%",
     color: "white",
   },
+  
 });

@@ -1,5 +1,5 @@
-import React from "react";
-import { View, TextInput, StyleSheet, Image } from "react-native";
+import React, {useState} from "react";
+import { View, TextInput, StyleSheet, Image,TouchableOpacity } from "react-native";
 
 type CustomeInputProps = {
   value: string;
@@ -7,6 +7,8 @@ type CustomeInputProps = {
   placeholder: string;
   secureTextEntry: boolean;
   imageSource: any;
+  imageSource2?: any;
+  imageSource3?: any;
 };
 
 const CustomeInput: React.FC<CustomeInputProps> = ({
@@ -15,7 +17,13 @@ const CustomeInput: React.FC<CustomeInputProps> = ({
   placeholder,
   secureTextEntry,
   imageSource,
+  imageSource2,
+  imageSource3,
 }) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prevState) => !prevState);
+  };
   return (
     <View style={styles.ViewContainer}>
       <View style={styles.ViewChild}>
@@ -25,8 +33,11 @@ const CustomeInput: React.FC<CustomeInputProps> = ({
           value={value}
           onChangeText={setValue}
           placeholder={placeholder}
-          secureTextEntry={secureTextEntry}
+          secureTextEntry={isPasswordVisible ? false : secureTextEntry} 
         />
+        <TouchableOpacity onPress={togglePasswordVisibility}>
+        <Image style={styles.Image} source={isPasswordVisible ? imageSource3 : imageSource2}/>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -35,7 +46,7 @@ const styles = StyleSheet.create({
   ViewContainer: {
     height: 50,
     width: "70%",
-    marginTop: 50,
+    marginTop: 40,
     borderBottomWidth: 2,
     borderBottomColor: "white",
   },
