@@ -1,16 +1,18 @@
 import React from "react";
-import { Button, View,StyleSheet, TouchableOpacity,Text } from "react-native";
+import {  View,StyleSheet, TouchableOpacity,Text,TextStyle } from "react-native";
 type CustomeButtonProps = {
     title: string;
     backgroundColor?: string; 
     borderColor?: string;      
     borderWidth?: number;
+    onPress?: () => void;
+    fontStyle: TextStyle;
 };
 
 const CustomeButton:React.FC<CustomeButtonProps> = ({ title,
     backgroundColor = '#506FFD',  
     borderColor = 'white',   
-    borderWidth = 2,   }) => {
+    borderWidth = 2, onPress,fontStyle}) => {
     const buttonStyle = [
         styles.buttonStyle, 
         { backgroundColor, borderColor, borderWidth }
@@ -22,7 +24,7 @@ const CustomeButton:React.FC<CustomeButtonProps> = ({ title,
         <TouchableOpacity 
             style={buttonStyle} 
         >
-            <Text style={styles.buttonText}>{title}</Text>
+            <Text style={[styles.buttonText,fontStyle]}>{title}</Text>
         </TouchableOpacity>
     </View>
        
