@@ -6,6 +6,8 @@ import {
   View,
   TouchableWithoutFeedback,
   Keyboard,
+  KeyboardAvoidingView,
+  ScrollView
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
@@ -24,10 +26,16 @@ export default function HomeScreen() {
   const [password, setPassword] = useState("");
 
   return (
-    <SafeAreaView style={styles.SafeAreaContainer}>
+    <SafeAreaView style={styles.SafeViewContainer}>
       <StatusBar backgroundColor="black" style="light"  />
+      
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.viewContainer}>
+      <KeyboardAvoidingView
+        style={styles.keyboardAvoidingViewContainer}
+        behavior={Platform.OS === "ios" ? "padding" : "height"} 
+        keyboardVerticalOffset={50} 
+      >
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <Image
           source={require("../../assets/images/LetsRide.png")}
           style={styles.headerImage}
@@ -53,15 +61,25 @@ export default function HomeScreen() {
           />
           <CustomeButton borderColor="transparent" borderWidth={0} title="Login" />
           <CustomeButton borderColor="white" borderWidth={2} backgroundColor="black" title="Sign Up" />
-         </View>
+         </ScrollView>
+          </KeyboardAvoidingView>
          </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
-  SafeAreaContainer: {
+  SafeViewContainer: {
     flex: 1,
     backgroundColor: "black",
+  },keyboardAvoidingViewContainer: {
+    flex: 1, 
+  },
+  scrollViewContainer: {
+    flexGrow: 1, // This allows the ScrollView content to expand and take the available space
+    justifyContent: "center", // Centers the content vertically
+    alignItems: "center", // Centers the content horizontally
+    paddingBottom: 10,
+     // Adds space at the bottom to make sure input fields are not cut off
   },
   viewContainer: {
     flex: 1,

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { View, TextInput, StyleSheet, Image,TouchableOpacity } from "react-native";
+import { View, TextInput, StyleSheet, Image,TouchableOpacity, } from "react-native";
 
 type CustomeInputProps = {
   value: string;
@@ -25,6 +25,7 @@ const CustomeInput: React.FC<CustomeInputProps> = ({
     setIsPasswordVisible((prevState) => !prevState);
   };
   return (
+    
     <View style={styles.ViewContainer}>
       <View style={styles.ViewChild}>
         <Image style={styles.Image} source={imageSource} />
@@ -40,6 +41,7 @@ const CustomeInput: React.FC<CustomeInputProps> = ({
         </TouchableOpacity>
       </View>
     </View>
+    
   );
 };
 const styles = StyleSheet.create({
