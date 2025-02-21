@@ -11,20 +11,24 @@ type Props = {
   Style: object,
   number: number,
   children: React.ReactNode,
+  index?: number | number[],
 };
 
-const CustomeScreen: React.FC<Props> = ({ Style,number,children }) => {
+const CustomeScreen: React.FC<Props> = ({ Style,number,children,index}) => {
+  const stickyIndices = Array.isArray(index) ? index : index != null ? [index] : [];
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <KeyboardAvoidingView
+    <KeyboardAvoidingView
         style={styles.keyboardAvoidingViewContainer}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={number}
       >
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <ScrollView contentContainerStyle={Style} stickyHeaderIndices={stickyIndices}>
         {children}
-        <ScrollView contentContainerStyle={Style}></ScrollView>
-      </KeyboardAvoidingView>
+
+        </ScrollView>
     </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
   );
 };
 const styles = StyleSheet.create({
