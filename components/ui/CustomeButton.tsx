@@ -1,53 +1,62 @@
 import React from "react";
-import {  View,StyleSheet, TouchableOpacity,Text,TextStyle } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  TextStyle,
+  ViewStyle,
+  DimensionValue,
+} from "react-native";
 type CustomeButtonProps = {
-    title: string;
-    backgroundColor?: string; 
-    borderColor?: string;      
-    borderWidth?: number;
-    onPress?: () => void;
-    fontStyle: TextStyle;
+  title: string;
+  backgroundColor?: string;
+  borderColor?: string;
+  borderWidth?: number;
+  onPress?: () => void;
+  fontStyle: TextStyle;
+  width?: string | number;
 };
 
-const CustomeButton:React.FC<CustomeButtonProps> = ({ title,
-    backgroundColor = '#506FFD',  
-    borderColor = 'white',   
-    borderWidth = 2, onPress,fontStyle}) => {
-    const buttonStyle = [
-        styles.buttonStyle, 
-        { backgroundColor, borderColor, borderWidth }
-    ];
+const CustomeButton: React.FC<CustomeButtonProps> = ({
+  title,
+  backgroundColor = "#506FFD",
+  borderColor = "white",
+  borderWidth = 2,
+  onPress,
+  fontStyle,
+  width = "100%",
+}) => {
+  const buttonStyle = [
+    styles.buttonStyle,
+    { backgroundColor, borderColor, borderWidth },
+  ];
+  const containerStyle = [styles.buttonContainer, { width: width as DimensionValue }];
 
-    return(
-
-        <View style={styles.buttonContainer}>
-        <TouchableOpacity 
-            style={buttonStyle} 
-        >
-            <Text style={[styles.buttonText,fontStyle]}>{title}</Text>
-        </TouchableOpacity>
+  return (
+    <View style={containerStyle}>
+      <TouchableOpacity style={buttonStyle} onPress={onPress}>
+        <Text style={[styles.buttonText, fontStyle]}>{title}</Text>
+      </TouchableOpacity>
     </View>
-       
-    )
+  );
 };
-const styles =StyleSheet.create({
-    buttonContainer: {
-        width: '80%',
-        marginTop: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonStyle: {
-        width: '100%',
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
-    },
-    buttonText: {
-        color: 'white', 
-        fontSize: 18,
-    }
+const styles = StyleSheet.create({
+  buttonContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonStyle: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 12,
     
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+  },
 });
 export default CustomeButton;

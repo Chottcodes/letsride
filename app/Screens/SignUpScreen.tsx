@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet} from "react-native";
 import CustomeButton from "../../components/ui/customeButton";
 import CustomeInput from "../../components/ui/customeInput";
 import { SafeAreaView } from "react-native-safe-area-context";

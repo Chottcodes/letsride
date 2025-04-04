@@ -1,19 +1,12 @@
-import React from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,  // ScrollView to make the content scrollable
-} from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import CustomeScreen from "@/components/ui/customeScreen";
 import SkipButton from "@/components/ui/skipButton";
 import { useFonts } from "expo-font";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import CustomeButton from "@/components/ui/customeButton";
 
 const SignUpQuestionnaire = () => {
   let [fontsLoaded] = useFonts({
@@ -22,10 +15,10 @@ const SignUpQuestionnaire = () => {
   });
 
   const fontFamily = fontsLoaded ? "Antonio regular" : "Arial,sans-serif";
-  const [selected, setSelected] = React.useState<string>("");
-  const [rideStyleInput, setrideStyleInput] = React.useState<string>("");
-  const [rideExperienceInput, setrideExperienceInput] = React.useState<string>("");
-  const [howOfterInput, sethowOftenInput] = React.useState<string>("");
+  const [motorcycleTypeInput, setmotorcycleTypeInput] = useState<string>("");
+  const [rideStyleInput, setrideStyleInput] = useState<string>("");
+  const [rideExperienceInput, setrideExperienceInput] = useState<string>("");
+  const [howOfterInput, sethowOftenInput] = useState<string>("");
 
   const motorcycleType = [
     { key: "1", value: "Cruiser" },
@@ -61,100 +54,67 @@ const SignUpQuestionnaire = () => {
     { key: "4", value: "A few times a month" },
     { key: "5", value: "Rarely" },
   ];
-  
+
   return (
     <SafeAreaView style={styles.SafeAreaViewContainer}>
       <StatusBar backgroundColor="black" style="light" />
-      <KeyboardAwareScrollView
-        style={styles.keyboardAvoidingViewContainer}
-        
-        // keyboardVerticalOffset={70}
-        
-      >
-
-        {/* <ScrollView contentContainerStyle={styles.scrollContainer}> */}
-          <View style={styles.buttonContainer}>
-            <SkipButton
-              buttonStyle={styles.SkipButton}
-              fontStyle={styles.SkipButtonText}
+      <KeyboardAwareScrollView contentContainerStyle={styles.contentContainer}>
+        <View style={styles.buttonContainer}>
+          <SkipButton
+            buttonStyle={styles.SkipButton}
+            fontStyle={styles.SkipButtonText}
+          />
+        </View>
+        <View style={styles.ViewContainer}>
+          <Text style={styles.header}>Tell us about yourself</Text>
+          <SelectList
+            data={motorcycleType}
+            setSelected={setmotorcycleTypeInput}
+            placeholder="What type of motorcycle do you ride?"
+           
+            boxStyles={styles.boxStyles}
+            inputStyles={styles.inputStyles}
+            dropdownStyles={styles.dropdownStyle}
+            dropdownTextStyles={styles.inputStyles}
+          />
+          <SelectList
+            data={rideStyle}
+            setSelected={setmotorcycleTypeInput}
+            placeholder="What is your riding style?"
+            save="value"
+            boxStyles={styles.boxStyles}
+            inputStyles={styles.inputStyles}
+            dropdownStyles={styles.dropdownStyle}
+            dropdownTextStyles={styles.inputStyles}
+          />
+          <SelectList
+            data={rideExperience}
+            setSelected={setmotorcycleTypeInput}
+            placeholder="What is your experience level?"
+            save="value"
+            boxStyles={styles.boxStyles}
+            inputStyles={styles.inputStyles}
+            dropdownStyles={styles.dropdownStyle}
+            dropdownTextStyles={styles.inputStyles}
+          />
+          <SelectList
+            data={howOften}
+            setSelected={setmotorcycleTypeInput}
+            placeholder="How often do you ride?"
+            save="value"
+            boxStyles={styles.boxStyles}
+            inputStyles={styles.inputStyles}
+            dropdownStyles={styles.dropdownStyle}
+            dropdownTextStyles={styles.inputStyles}
+          />
+          <View style={styles.continueButton}>
+            <CustomeButton
+              title="Continue"
+              backgroundColor="black"
+              fontStyle={{ fontFamily }}
             />
           </View>
-          <View style={styles.ViewContainer}>
-            <View style={styles.TitleContainer}>
-              <Text style={styles.TitleText}>Tell Us About Yourself</Text>
-              <Text style={styles.SmallerText}>
-                This will help us provide you with the best experience.
-              </Text>
-            </View>
-            <View style={styles.selectedlistContainer}>
-              <Text style={styles.SelectListText}>
-                What type of motorcycle do you currently ride?
-              </Text>
-              <SelectList
-                setSelected={(val: string) => setSelected(val)}
-                data={motorcycleType}
-                save="value"
-                fontFamily={fontFamily}
-                placeholder="Motorcycle Brand"
-                searchPlaceholder="Search Brand"
-                boxStyles={styles.boxStyle}
-                inputStyles={styles.inputStyles}
-                dropdownStyles={styles.boxStyle}
-                dropdownTextStyles={styles.inputStyles}
-              />
-              <View style={styles.selectChildContainer}>
-                <Text style={styles.SelectListText}>
-                  What type of riding do you mostly enjoy?
-                </Text>
-                <SelectList
-                  setSelected={(val: string) => setrideStyleInput(val)}
-                  data={rideStyle}
-                  save="value"
-                  fontFamily={fontFamily}
-                  placeholder="Riding Style"
-                  searchPlaceholder="Search Style"
-                  boxStyles={styles.boxStyle}
-                  inputStyles={styles.inputStyles}
-                  dropdownStyles={styles.boxStyle}
-                  dropdownTextStyles={styles.inputStyles}
-                />
-              </View>
-              <View style={styles.selectChildContainer}>
-                <Text style={styles.SelectListText}>
-                  How long have you been riding motorcycles?
-                </Text>
-                <SelectList
-                  setSelected={(val: string) => setrideExperienceInput(val)}
-                  data={rideExperience}
-                  save="value"
-                  fontFamily={fontFamily}
-                  placeholder="Riding Experience"
-                  boxStyles={styles.boxStyle}
-                  inputStyles={styles.inputStyles}
-                  dropdownStyles={styles.boxStyle}
-                  dropdownTextStyles={styles.inputStyles}
-                />
-              </View>
-              <View style={styles.selectChildContainer}>
-                <Text style={styles.SelectListText}>
-                How often do you ride?
-                </Text>
-                <SelectList
-                  setSelected={(val: string) => setrideExperienceInput(val)}
-                  data={howOften}
-                  save="value"
-                  fontFamily={fontFamily}
-                  placeholder="Riding Routine"
-                  boxStyles={styles.boxStyle}
-                  inputStyles={styles.inputStyles}
-                  dropdownStyles={styles.boxStyle}
-                  dropdownTextStyles={styles.inputStyles}
-                
-                />
-              </View>
-            </View>
-          </View>
-        {/* </ScrollView> */}
+        </View>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
@@ -166,21 +126,18 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
   },
   ViewContainer: {
-    gap: 20,
-  },
-  TitleContainer: {
-    marginTop: 20,
+    flexDirection: "column",
+    height: "80%",
+    width: "100%",
+    justifyContent: "space-evenly",
     alignItems: "center",
   },
-  TitleText: {
+  header: {
     color: "white",
-    fontSize: 40,
-    fontFamily: "Antonio regular",
+    fontSize: 20,
   },
-  SmallerText: {
-    fontFamily: "Antonio regular",
-    color: "white",
-    fontSize: 15,
+  contentContainer: {
+    flexGrow: 1,
   },
   buttonContainer: {
     width: "100%",
@@ -197,31 +154,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: "Antonio regular",
   },
-  selectedlistContainer: {
-    marginTop: 50,
-    width: "80%",
-    margin: "auto",
-  },
-  selectChildContainer: {
-    marginTop: 40,
-  },
-  boxStyle: {
-    backgroundColor: "#2f2f2f",
+  boxStyles: {
+    backgroundColor: "gray",
+    borderColor: "white",
+    borderWidth: 2,
+    borderRadius: 10,
+    width: "90%",
+    fontFamily: "Antonio regular",
   },
   inputStyles: {
     color: "white",
+    fontSize: 15,
+    fontFamily: "Antonio regular",
   },
-  SelectListText: {
-    color: "white",
-    marginBottom: 4,
+  dropdownStyle: {
+    backgroundColor: "gray",
+    borderColor: "white",
   },
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: 'flex-start',  // Ensure content starts at the top of the screen
-    paddingBottom: 100,  // Optional padding for a nicer feel when you reach the bottom
-  },
-  keyboardAvoidingViewContainer: {
-    flex: 1,
+  continueButton: {
+    width: "90%",
+    height: "12%",
   },
 });
 
